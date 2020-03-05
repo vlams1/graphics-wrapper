@@ -10,5 +10,9 @@
   "license": "UNLICENSED",
   "dependencies": {
     "canvas": "^2.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vlams1/graphics-wrapper.git"
   }
 }
