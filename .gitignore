@@ -1,6 +1,9 @@
 # Rider
 .idea
 
+# Test output
+test.png
+
 # Logs
 logs
 *.log

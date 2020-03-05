@@ -4,7 +4,7 @@
   "description": "A wrapper for node-canvas",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "author": "Vlams",
   "license": "UNLICENSED",
@@ -14,5 +14,8 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/vlams1/graphics-wrapper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vlams1/graphics-wrapper/issues"
   }
 }
