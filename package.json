@@ -1,6 +1,6 @@
 {
   "name": "graphics-wrapper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A wrapper for node-canvas",
   "main": "index.js",
   "scripts": {

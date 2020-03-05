@@ -1,8 +1,6 @@
-﻿# graphics-wrapper
+﻿## graphics-wrapper
 
 A wrapper for node-canvas
-
-## INSTALLATION
 
 ``npm install graphics-wrapper``
 
