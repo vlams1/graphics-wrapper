@@ -211,6 +211,7 @@ module.exports.drawRoundedRectStroke = function(color, x, y, w, h, indent, strok
  * Draws filled text (auto scales when using w and h controls)
  * @param {string} text
  * @param {string} font
+ * @param {string} emphasis
  * @param {Number} size
  * @param {string} color
  * @param {Number} x
@@ -220,16 +221,16 @@ module.exports.drawRoundedRectStroke = function(color, x, y, w, h, indent, strok
  * @param {Number} w
  * @param {Number} h
  */
-module.exports.drawTextFill = function(text, font, size, color, x, y, align, baseline, w, h) {
+module.exports.drawTextFill = function(text, font, emphasis, size, color, x, y, align, baseline, w, h) {
     if (!align) align = "left";
     if (!baseline) baseline = "middle";
-    ctx.font = `${size}px ${font}`;
+    ctx.font = `${emphasis}${emphasis.length > 0 ? " " : ""}${size}px ${font}`;
     ctx.fillStyle = color;
     ctx.textAlign = align;
     ctx.textBaseline = baseline;
     if (w && h)
         while (ctx.measureText(text).width >= w || ctx.measureText(text).actualBoundingBoxAscent + ctx.measureText(text).actualBoundingBoxDescent >= h)
-            ctx.font = `${size-=1}px ${font}`;
+            ctx.font = `${emphasis}${emphasis.length > 0 ? " " : ""}${size-=1}px ${font}`;
     ctx.fillText(text, x, y);
 };
 
@@ -237,6 +238,7 @@ module.exports.drawTextFill = function(text, font, size, color, x, y, align, bas
  * Draws text outline (auto scales when using w and h controls)
  * @param {string} text
  * @param {string} font
+ * @param {string} emphasis
  * @param {Number} size
  * @param {string} color
  * @param {Number} x
@@ -247,18 +249,80 @@ module.exports.drawTextFill = function(text, font, size, color, x, y, align, bas
  * @param {Number} w
  * @param {Number} h
  */
-module.exports.drawTextStroke = function(text, font, size, color, x, y, stroke, align, baseline, w, h) {
+module.exports.drawTextStroke = function(text, font, emphasis, size, color, x, y, stroke, align, baseline, w, h) {
     if (!align) align = "left";
     if (!baseline) baseline = "middle";
-    ctx.font = `${size}px ${font}`;
+    ctx.font = `${emphasis}${emphasis.length > 0 ? " " : ""}${size}px ${font}`;
     ctx.fillStyle = color;
     ctx.textAlign = align;
     ctx.textBaseline = baseline;
     if (w && h)
         while (ctx.measureText(text).width >= w || ctx.measureText(text).actualBoundingBoxAscent + ctx.measureText(text).actualBoundingBoxDescent >= h)
-            ctx.font = `${size-=1}px ${font}`;
+            ctx.font = `${emphasis}${emphasis.length > 0 ? " " : ""}${size-=1}px ${font}`;
     ctx.strokeWidth = w;
     ctx.strokeText(text, x, y);
+};
+
+/**
+ * Returns text with newlines to fit specified width.
+ * @param {string} text
+ * @param {string} font
+ * @param {string} emphasis
+ * @param {Number} size
+ * @param {Number} w
+ */
+module.exports.measureTextBox = function(text, font, emphasis, size, w) {
+    ctx.font = `${emphasis}${emphasis.length > 0 ? " " : ""}${size}px ${font}`;
+    const words = text.split(" ");
+    let count = 1;
+    text = "";
+    while (words.length > 0) {
+        if (count === words.length) break;
+        while (ctx.measureText(words.slice(0,count+1)).width < w && count+1 <= words.length) {
+            count++;
+        }
+        text += words.slice(0,count).join(" ") + "\n";
+        while (count > 0) {
+            words.shift();
+            count--;
+        }
+        count++;
+    }
+    text += words.slice(0,count).join(" ");
+    return text;
+};
+
+/**
+ * Draws filled text fit to specified width.
+ * @param {string} text
+ * @param {string} font
+ * @param {string} emphasis
+ * @param {Number} size
+ * @param {Number} w
+ * @param {string} color
+ * @param {Number} x
+ * @param {Number} y
+ */
+module.exports.drawTextBoxFill = function(text, font, emphasis, size, w, color, x, y) {
+    text = module.exports.measureTextBox(text, font, emphasis, size, w);
+    module.exports.drawTextFill(text, font, emphasis, size, color, x, y);
+};
+
+/**
+ * Draws text outline fit to specified width.
+ * @param {string} text
+ * @param {string} font
+ * @param {string} emphasis
+ * @param {Number} size
+ * @param {Number} w
+ * @param {string} color
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} stroke
+ */
+module.exports.drawTextBoxStroke = function(text, font, emphasis, size, w, color, x, y, stroke) {
+    text = module.exports.measureTextBox(text, font, emphasis, size, w);
+    module.exports.drawTextStroke(text, font, emphasis, size, color, x, y, stroke);
 };
 
 //  IMAGE
