@@ -1,21 +1,27 @@
 {
   "name": "graphics-wrapper",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A wrapper for node-canvas",
+  "author": "Vlams",
+  "license": "MIT",
+  "keywords": [
+    "canvas",
+    "graphic",
+    "graphics",
+    "image",
+    "images"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "node test/test.js",
-    "testNineSlice": "node test/testNineSlice.js"
+    "testNineSlice": "node test/testNineSlice.js",
+    "testTextBox": "node test/testTextBox.js"
   },
-  "author": "Vlams",
-  "license": "UNLICENSED",
   "dependencies": {
     "canvas": "^2.6.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/vlams1/graphics-wrapper.git"
-  },
+  "homepage": "https://github.com/vlams1/graphics-wrapper",
+  "repository": "git://github.com/vlams1/graphics-wrapper.git",
   "bugs": {
     "url": "https://github.com/vlams1/graphics-wrapper/issues"
   }

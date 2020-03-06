@@ -3,6 +3,10 @@
 
 A wrapper for node-canvas
 
+## LICENSE
+
+[MIT](https://choosealicense.com/licenses/mit/ "MIT")
+
 ## USAGE
 
 ```js
