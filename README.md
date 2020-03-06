@@ -7,7 +7,7 @@ A wrapper for node-canvas
 
 ```js
 const Canvas = require('canvas');
-const Draw = require('./');
+const Draw = require('graphics-wrapper');
 
 const canvas = Canvas.createCanvas(500, 500);
 const ctx = canvas.getContext('2d');

@@ -1,6 +1,6 @@
-﻿﻿﻿const fs = require('fs');
+﻿﻿﻿﻿const fs = require('fs');
 const Canvas = require('canvas');
-const Draw = require('./');
+const Draw = require('../');
 
 (async function() {
 	const canvas = Canvas.createCanvas(500, 500);

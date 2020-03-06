@@ -270,21 +270,25 @@ module.exports.drawTextStroke = function(text, font, size, color, x, y, stroke, 
  * @param {Number} y
  * @param {Number} w
  * @param {Number} h
- * @param {Number} dx
- * @param {Number} dy
+ * @param {Number} x1
+ * @param {Number} y1
+ * @param {Number} x2
+ * @param {Number} y2
  */
-module.exports.drawNineSlice = function(image, x, y, w, h, dx, dy) {
+module.exports.drawNineSlice = function(image, x, y, w, h, x1, y1, x2, y2) {
     const iw = image.width;
     const ih = image.height;
-    if (!dx) dx = Math.floor(iw / 3);
-    if (!dy) dy = Math.floor(ih / 3);
-    ctx.drawImage(image, 0, 0, dx, dy, x, y, dx, dy);
-    ctx.drawImage(image, dx, 0, iw-dx*2, dy, x+dx, y, w-dx*2, dy);
-    ctx.drawImage(image, iw-dx, 0, dx, dy, x+w-dx, y, dx, dy);
-    ctx.drawImage(image, 0, dy, dx, ih-dy*2, x, y+dy, dx, h-dy*2);
-    ctx.drawImage(image, dx, dy, iw-dx*2, ih-dy*2, x+dx, y+dy, w-dx*2, h-dy*2);
-    ctx.drawImage(image, iw-dx, dy, dx, ih-dy*2, x+w-dx, y+dy, dx, h-dy*2);
-    ctx.drawImage(image, 0, ih-dy, dx, dy, x, y+h-dx, dx, dy);
-    ctx.drawImage(image, dx, ih-dy, iw-dx*2, dy, x+dx, y+h-dx, w-dx*2, dy);
-    ctx.drawImage(image, iw-dx, ih-dy, dx, dy, x+w-dx, y+h-dx, dx, dy);
+    if (!x1) x1 = Math.floor(iw / 3);
+    if (!y1) y1 = Math.floor(x1 / iw * ih);
+    if (!x2) x2 = x1;
+    if (!y2) y2 = y1;
+    ctx.drawImage(image, 0, 0, x1, y1, x, y, x1, y1);
+    ctx.drawImage(image, x1, 0, iw-x1-x2, y1, x+x1, y, w-x1-x2, y1);
+    ctx.drawImage(image, iw-x2, 0, x2, y1, x+w-x2, y, x2, y1);
+    ctx.drawImage(image, 0, y1, x1, ih-y1-y2, x, y+y1, x1, h-y1-y2);
+    ctx.drawImage(image, x1, y1, iw-x1-x2, ih-y1-y2, x+x1, y+y1, w-x1-x2, h-y1-y2);
+    ctx.drawImage(image, iw-x2, y1, x2, ih-y1-y2, x+w-x2, y+y1, x2, h-y1-y2);
+    ctx.drawImage(image, 0, ih-y2, x1, y2, x, y+h-y2, x1, y2);
+    ctx.drawImage(image, x1, ih-y2, iw-x1-x2, y2, x+x1, y+h-y2, w-x1-x2, y2);
+    ctx.drawImage(image, iw-x2, ih-y2, x2, y2, x+w-x2, y+h-y2, x2, y2);
 };

@@ -2,7 +2,7 @@
 .idea
 
 # Test output
-test.png
+test*.png
 
 # Logs
 logs
