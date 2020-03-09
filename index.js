@@ -259,7 +259,7 @@ module.exports.drawTextStroke = function(text, font, emphasis, size, color, x, y
     if (w && h)
         while (ctx.measureText(text).width >= w || ctx.measureText(text).actualBoundingBoxAscent + ctx.measureText(text).actualBoundingBoxDescent >= h)
             ctx.font = `${emphasis}${emphasis.length > 0 ? " " : ""}${size-=1}px ${font}`;
-    ctx.lineWidth = w;
+    ctx.lineWidth = stroke;
     ctx.strokeText(text, x, y);
 };
 
