@@ -51,7 +51,7 @@ module.exports.drawFill = function(color) {
  */
 module.exports.drawStroke = function(color, stroke) {
     ctx.strokeStyle = color;
-    ctx.strokeWidth = stroke;
+    ctx.lineWidth = stroke;
     ctx.stroke();
 };
 
@@ -96,7 +96,7 @@ module.exports.drawCircleStroke = function(color, x, y, radius, stroke) {
     ctx.save();
     module.exports.pathCircle(x, y, radius);
     ctx.strokeStyle = color;
-    ctx.strokeWidth = stroke;
+    ctx.lineWidth = stroke;
     ctx.stroke();
     ctx.restore();
 };
@@ -259,7 +259,7 @@ module.exports.drawTextStroke = function(text, font, emphasis, size, color, x, y
     if (w && h)
         while (ctx.measureText(text).width >= w || ctx.measureText(text).actualBoundingBoxAscent + ctx.measureText(text).actualBoundingBoxDescent >= h)
             ctx.font = `${emphasis}${emphasis.length > 0 ? " " : ""}${size-=1}px ${font}`;
-    ctx.strokeWidth = w;
+    ctx.lineWidth = w;
     ctx.strokeText(text, x, y);
 };
 
