@@ -356,3 +356,52 @@ module.exports.drawNineSlice = function(image, x, y, w, h, x1, y1, x2, y2) {
     ctx.drawImage(image, x1, ih-y2, iw-x1-x2, y2, x+x1, y+h-y2, w-x1-x2, y2);
     ctx.drawImage(image, iw-x2, ih-y2, x2, y2, x+w-x2, y+h-y2, x2, y2);
 };
+
+/**
+ * Create rounded parallelogram path
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} w
+ * @param {Number} h
+ * @param {Number} s
+ * @param {Number} indent
+ */
+module.exports.pathRoundedParallelogram = function(x, y, w, h, s, indent) {
+    const z = s * (indent/h)
+    const shortest = Math.min(w,h) / 2;
+    if (indent < 1) indent *= shortest;
+    else indent = Math.min(indent, shortest);
+    w += x;
+    h += y;
+    ctx.beginPath();
+    ctx.moveTo(x+indent+s,y);
+    ctx.lineTo(w-indent+s,y);
+    ctx.quadraticCurveTo(w+s,y,w+s-z,y+indent);
+    ctx.lineTo(w+z,h-indent);
+    ctx.quadraticCurveTo(w,h,w-indent,h);
+    ctx.lineTo(x+indent,h);
+    ctx.quadraticCurveTo(x,h,x+z,h-indent);
+    ctx.lineTo(x+s-z,y+indent);
+    ctx.quadraticCurveTo(x+s,y,x+indent+s,y);
+    ctx.closePath();
+};
+
+
+/**
+ * Create parallelogram path
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} w
+ * @param {Number} h
+ * @param {Number} s
+ */
+module.exports.pathParallelogram = function(x, y, w, h, s) {
+    w += x;
+    h += y;
+    ctx.beginPath();
+    ctx.moveTo(x+s,y);
+    ctx.lineTo(w+s,y);
+    ctx.lineTo(w,h);
+    ctx.lineTo(x,h);
+    ctx.closePath();
+};
